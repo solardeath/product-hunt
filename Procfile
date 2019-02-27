@@ -1,0 +1,1 @@
+web: gunicorn producthunt2.wsgi
