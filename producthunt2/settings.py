@@ -81,11 +81,13 @@ WSGI_APPLICATION = 'producthunt2.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        
     }
 }
-
+DATABASES['default']= dj_database_url.config(default ='postgres://zxxrkezpznjuop:797630547940ae63de3a81ceac55f26a3090fb3868d8e3d1edcfad1fe27f50c9@ec2-54-83-55-115.compute-1.amazonaws.com:5432/d96d4ciofq1pue')
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -135,5 +137,6 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressManifestStaticFilesStorage'
 
 django_heroku.settings(locals())   
